@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  creationTimestamp: 2016-08-23T22:27:55Z
+  generation: 7
+  labels:
+    app: ironworker
+    version: beta
+  name: ironworker
+  namespace: default
+  resourceVersion: "295"
+  selfLink: /api/v1/namespaces/default/replicationcontrollers/ironworker
+  uid: d6afec0a-6980-11e6-bfdc-1266909ae3ba
+spec:
+  replicas: 1
+  selector:
+    app: ironworker
+    version: beta
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ironworker
+        version: beta
+      name: ironworker
+    spec:
+      containers:
+      - env:
+        - name: CLUSTER_ID
+          value: CLUSTERID
+        - name: CLUSTER_TOKEN
+          value: CLUSTERTOKEN
+        - name: ENV
+          value: PRODUCTION
+        image: iron/gorunner:latest
+        imagePullPolicy: IfNotPresent
+        name: ironworker
+        resources:
+          requests:
+            cpu: "2"
+            memory: 2Gi
+        securityContext:
+          privileged: true
+        terminationMessagePath: /dev/termination-log
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: dockeruser
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+status:
+  observedGeneration: 7
+  replicas: 1
